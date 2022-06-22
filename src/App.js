@@ -1,22 +1,37 @@
 import './App.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useEffect, useState } from 'react';
+import L from 'leaflet';
+
+function GetIcon(iconSize) {
+  return L.icon({
+    iconUrl: require("./icon/icons8-red-circle-48.png"),
+    iconSize: iconSize
+  })
+}
 
 function App() {
 
+  // https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
+  
   const mapCenter = [37.439181, -6.759908];
 
   const [earthquakeData, setEarthquakeData] = useState({});
 
   function convertMillisecondsToDate(milliseconds) {
 
-    const dateObject = new Date(milliseconds);
+    const dateObject = new Date(milliseconds); 
 
     const humanDateFormat = dateObject.toLocaleString();
 
     return humanDateFormat
 
   }
+
+  const redCircleIcon = L.icon({
+    iconUrl: require("./icon/icons8-red-circle-48.png"),
+    iconSize: [30, 30]
+  })
 
   useEffect(() => {
     fetch(`https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson`)
@@ -38,6 +53,8 @@ function App() {
 
   }, []);
 
+  console.log(earthquakeData)
+
   return (
     <div>
       <header>
@@ -54,32 +71,42 @@ function App() {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         {
-          earthquakeData.map((earthquake) => {
+          // earthquakeData && earthquakeData.map((earthquake) => {
 
-            const time = convertMillisecondsToDate(earthquake.properties.time);
+          //   const time = convertMillisecondsToDate(earthquake.properties.time);
 
-            console.log(time);
+          //   console.log(time);
             
-            return (
-              <Marker
-                key={earthquake.id}
-                position={[
-                  earthquake.geometry.coordinates[1],
-                  earthquake.geometry.coordinates[0]
-                ]}
-              >
-                <Popup>
-                  <div>
-                    <p>{earthquake.properties.place}</p>
-                    <p>Magnitude: {earthquake.properties.mag}</p>
-                    <p>{time}</p>
-                  </div>
-                </Popup>
+          //   return (
+          //     <Marker
+          //       key={earthquake.id}
+          //       position={[
+          //         earthquake.geometry.coordinates[1],
+          //         earthquake.geometry.coordinates[0]
+          //       ]}
+          //     >
+          //       <Popup>
+          //         <div>
+          //           <p>{earthquake.properties.place}</p>
+          //           <p>Magnitude: {earthquake.properties.mag}</p>
+          //           <p>{time}</p>
+          //         </div>
+          //       </Popup>
 
-              </Marker>
-            )
-          })
+          //     </Marker>
+          //   )
+          // })
         }
+        <Marker
+          key={1}
+          position={[
+            43.358802,
+            -79.785148
+          ]}
+          icon={GetIcon([70,70])}
+        >
+
+        </Marker>
 
       </MapContainer>
     </div>
