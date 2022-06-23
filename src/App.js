@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import L from 'leaflet';
 
 import { convertMillisecondsToDate } from './utils/convertTime';
+import useEarthquakeData from './hooks/useEarthquakeData';
 
 function GetIcon(iconSize) {
   return L.icon({
@@ -18,34 +19,12 @@ function App() {
   
   const mapCenter = [37.439181, -6.759908];
 
-  const [earthquakeData, setEarthquakeData] = useState({});
+  const { earthquakeData } = useEarthquakeData();
 
   const redCircleIcon = L.icon({
     iconUrl: require("./icon/icons8-red-circle-48.png"),
     iconSize: [30, 30]
   })
-
-  useEffect(() => {
-    fetch(`https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            `This is an HTTP error: The status is ${response.status}`
-          )
-        }
-        return response.json()
-      })
-      .then((data) => {
-        setEarthquakeData(data.features)
-        console.log(data.features);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      })
-
-  }, []);
-
-  console.log(earthquakeData)
 
   return (
     <div>
@@ -66,8 +45,6 @@ function App() {
           earthquakeData && earthquakeData.map((earthquake) => {
 
             const time = convertMillisecondsToDate(earthquake.properties.time);
-
-            console.log(time);
             
             return (
               <Marker
