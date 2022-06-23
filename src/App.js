@@ -13,6 +13,14 @@ function GetIcon(iconSize) {
   })
 }
 
+function createIconSize(magnitude) {
+  const pixel = magnitude * 10;
+
+  const iconSize = [pixel, pixel];
+
+  return iconSize
+}
+
 function App() {
 
   // https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
@@ -45,6 +53,8 @@ function App() {
           earthquakeData && earthquakeData.map((earthquake) => {
 
             const time = convertMillisecondsToDate(earthquake.properties.time);
+
+            const iconSize = createIconSize(earthquake.properties.mag)
             
             return (
               <Marker
@@ -53,6 +63,7 @@ function App() {
                   earthquake.geometry.coordinates[1],
                   earthquake.geometry.coordinates[0]
                 ]}
+                icon={GetIcon(iconSize)}
               >
                 <Popup>
                   <div>
@@ -66,16 +77,6 @@ function App() {
             )
           })
         }
-        <Marker
-          key={1}
-          position={[
-            43.358802,
-            -79.785148
-          ]}
-          icon={GetIcon([70,70])}
-        >
-
-        </Marker>
 
       </MapContainer>
     </div>
