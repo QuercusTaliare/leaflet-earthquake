@@ -17,7 +17,7 @@ function App() {
   ];
 
   
-
+  // https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
   const [earthquakeUrl, setEarthquakeUrl] = useState("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson");
 
   useEffect(() => {
@@ -54,6 +54,7 @@ function App() {
         url={earthquakeUrl}
       />
 
+      {/* https://www.robinwieruch.de/react-dropdown/ */}
       <fieldset>
         <legend>Magnitude</legend>
         <label htmlFor="magnitude-select">Choose the magnitude: </label>
