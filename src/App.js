@@ -1,38 +1,17 @@
 import './App.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { useEffect, useState } from 'react';
-import L from 'leaflet';
 
 import { convertMillisecondsToDate } from './utils/convertTime';
+import { getIcon, createIconSize } from './utils/icons';
 import useEarthquakeData from './hooks/useEarthquakeData';
-
-function GetIcon(iconSize) {
-  return L.icon({
-    iconUrl: require("./icon/icons8-red-circle-48.png"),
-    iconSize: iconSize
-  })
-}
-
-function createIconSize(magnitude) {
-  const pixel = magnitude * 10;
-
-  const iconSize = [pixel, pixel];
-
-  return iconSize
-}
 
 function App() {
 
-  // https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
-  
   const mapCenter = [37.439181, -6.759908];
 
   const { earthquakeData } = useEarthquakeData();
 
-  const redCircleIcon = L.icon({
-    iconUrl: require("./icon/icons8-red-circle-48.png"),
-    iconSize: [30, 30]
-  })
+  const redCircleIcon = require("./icon/icons8-red-circle-48.png");
 
   return (
     <div>
@@ -63,7 +42,7 @@ function App() {
                   earthquake.geometry.coordinates[1],
                   earthquake.geometry.coordinates[0]
                 ]}
-                icon={GetIcon(iconSize)}
+                icon={getIcon(iconSize, redCircleIcon)}
               >
                 <Popup>
                   <div>
