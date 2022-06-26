@@ -4,10 +4,10 @@ import { convertMillisecondsToDate } from '../utils/convertTime';
 import { getIcon, createIconSize } from '../utils/icons';
 import useEarthquakeData from '../hooks/useEarthquakeData';
 
-function Map() {
+function Map({ url }) {
   const mapCenter = [37.439181, -6.759908];
 
-  const { earthquakeData } = useEarthquakeData();
+  const { earthquakeData } = useEarthquakeData({ url });
 
   const redCircleIcon = require("../icon/icons8-red-circle-48.png");
 

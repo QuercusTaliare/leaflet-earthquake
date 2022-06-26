@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 
-export default function useEarthquakeData() {
+export default function useEarthquakeData({ url }) {
+
   const [earthquakeData, setEarthquakeData] = useState([]);
 
   useEffect(() => {
-    fetch(`https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson`)
+    fetch(url)
       .then((response) => {
         if (!response.ok) {
           throw new Error(
@@ -15,13 +16,12 @@ export default function useEarthquakeData() {
       })
       .then((data) => {
         setEarthquakeData(data.features)
-        console.log(data.features);
       })
       .catch((error) => {
         console.log(error.message);
       })
 
-  }, []);
+  }, [url]);
 
   return {
     earthquakeData
