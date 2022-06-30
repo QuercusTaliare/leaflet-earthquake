@@ -4,10 +4,10 @@ import { convertMillisecondsToDate } from '../utils/convertTime';
 import { getIcon, createIconSize } from '../utils/icons';
 import useEarthquakeData from '../hooks/useEarthquakeData';
 
-function Map({ url }) {
+function Map({ data }) {
   const mapCenter = [37.439181, -6.759908];
 
-  const { earthquakeData } = useEarthquakeData({ url });
+  // const { earthquakeData } = useEarthquakeData({ url });
 
   const redCircleIcon = require("../icon/icons8-red-circle-48.png");
 
@@ -24,7 +24,7 @@ function Map({ url }) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         {
-          earthquakeData && earthquakeData.map((earthquake) => {
+          data && data.map((earthquake) => {
 
             const time = convertMillisecondsToDate(earthquake.properties.time);
 
