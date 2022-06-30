@@ -1,6 +1,7 @@
 import './App.css';
 import Map from './components/Map';
 import Dropdown from './components/Dropdown';
+import Header from './components/Header';
 import useForm from './hooks/useForm';
 import useMagnitudeUrl from './hooks/useMagnitudeUrl';
 import useEarthquakeData from './hooks/useEarthquakeData';
@@ -16,14 +17,12 @@ function App() {
   const { earthquakeUrl } = useMagnitudeUrl(values.magnitude);
 
   // Fetch data based on url
-  const { earthquakeData } = useEarthquakeData({ earthquakeUrl });
+  const { earthquakeData } = useEarthquakeData(earthquakeUrl);
 
 
   return (
     <div>
-      <header>
-        <h1>Leaflet Test Three</h1>
-      </header>
+      <Header />
 
       <Map 
         data={earthquakeData}

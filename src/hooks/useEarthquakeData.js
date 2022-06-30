@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function useEarthquakeData({ url }) {
+export default function useEarthquakeData(url) {
 
   const [earthquakeData, setEarthquakeData] = useState([]);
 
