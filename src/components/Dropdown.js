@@ -1,3 +1,5 @@
+import { Select, MenuItem, InputLabel, Box } from "@mui/material";
+
 export default function Dropdown({ label, value, onChange }) {
   
   /* https://www.robinwieruch.de/react-dropdown/ */
@@ -10,17 +12,24 @@ export default function Dropdown({ label, value, onChange }) {
   ];
   
   return (
-    <>
-    <label htmlFor="magnitude-select">{label}</label>
-    <select value={value} onChange={onChange} id="magnitude-select" name="magnitude">
-      {
-        magnitudeOptions.map((option) => {
-          return (
-            <option value={option.value} key={option.value}>{option.label}</option>
-          )
-        })
-      }
-    </select>
-    </>
+    <Box width="250px">
+      <InputLabel id="magnitude-select">{label}</InputLabel>
+      <Select
+        name="magnitude"
+        value={value}
+        label="Magnitude"
+        onChange={onChange}
+        labelId="magnitude-select"
+        fullWidth
+      >
+        {
+          magnitudeOptions.map((option) => {
+            return (
+              <MenuItem value={option.value} key={option.value}>{option.label}</MenuItem>
+            )
+          })
+        }
+      </Select>
+    </Box>
   )
 }
