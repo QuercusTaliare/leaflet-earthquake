@@ -22,7 +22,7 @@ function App() {
 
 
   return (
-    <div>
+    <div class="wrapper">
       <Header />
 
       <Map 
