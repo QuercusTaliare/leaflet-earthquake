@@ -1,4 +1,4 @@
-import { Select, MenuItem, InputLabel, Box } from "@mui/material";
+import { MenuItem, Box, TextField, FormHelperText } from "@mui/material";
 
 export default function Dropdown({ label, value, onChange }) {
   
@@ -13,13 +13,12 @@ export default function Dropdown({ label, value, onChange }) {
   
   return (
     <Box width="250px">
-      <InputLabel id="magnitude-select">{label}</InputLabel>
-      <Select
+      <TextField
+        select
         name="magnitude"
         value={value}
-        label="Magnitude"
+        label={label}
         onChange={onChange}
-        labelId="magnitude-select"
         fullWidth
       >
         {
@@ -29,7 +28,8 @@ export default function Dropdown({ label, value, onChange }) {
             )
           })
         }
-      </Select>
+      </TextField>
+      <FormHelperText>Will display earthquakes that occurred in the last day</FormHelperText>
     </Box>
   )
 }

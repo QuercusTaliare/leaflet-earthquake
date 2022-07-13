@@ -1,4 +1,5 @@
 import './App.css';
+import { FormControl, Box } from '@mui/material';
 import Map from './components/Map';
 import Dropdown from './components/Dropdown';
 import Header from './components/Header';
@@ -28,15 +29,16 @@ function App() {
         data={earthquakeData}
       />
 
-      <fieldset>
-        <legend>Magnitude</legend>
-        <Dropdown 
-          label="Choose the magnitude: "
-          value={values.magnitude}
-          onChange={updateValue}
-        />
-      </fieldset>
+      <Box sx={{ mt: 5 }}>
 
+        <FormControl>
+          <Dropdown 
+            label="Magnitude"
+            value={values.magnitude}
+            onChange={updateValue}
+          />
+        </FormControl>
+      </Box>
       {
         !earthquakeData.length && <p>There are no earthquakes today with those parameters. Please search again or come back later.</p>
       }
