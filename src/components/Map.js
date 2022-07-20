@@ -1,24 +1,69 @@
+import './Map.css';
+import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+
+import { useMap } from 'react-leaflet';
 
 import { convertMillisecondsToDate } from '../utils/convertTime';
 import { getIcon, createIconSize } from '../utils/icons';
-import useEarthquakeData from '../hooks/useEarthquakeData';
+
+function useDimensions() {
+  
+  const [dimensions, setDimensions] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth
+  })
+
+  useEffect(() => {
+    function handleResize() {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth
+      })
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+
+  }, [])
+
+  return { dimensions }
+  
+}
+
+function Zoom() {
+
+  const leafletMethods = useMap();
+
+  const { dimensions } = useDimensions();
+
+  if (dimensions.width <= 600) {
+    leafletMethods.setZoom(1)
+  }
+  if (dimensions.width >= 601) {
+    leafletMethods.setZoom(2)
+  }
+
+}
 
 function Map({ data }) {
   const mapCenter = [37.439181, -6.759908];
 
-  // const { earthquakeData } = useEarthquakeData({ url });
 
   const redCircleIcon = require("../icon/icons8-red-circle-48.png");
 
   return (
-    <>
-
+    <div className="map-container-container">
+      
       <MapContainer
         center={mapCenter}
         zoom={2}
-        style={{ maxWidth: '1200px', height: '70vh' }}
+        style={{ height: '100%', maxHeight: '100%' }}
       >
+        <Zoom />
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -53,7 +98,7 @@ function Map({ data }) {
         }
 
       </MapContainer>
-    </>
+    </div>
 
   );
 }

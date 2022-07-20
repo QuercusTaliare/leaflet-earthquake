@@ -1,0 +1,15 @@
+.map-container-container {
+  height: 70vh;
+}
+
+@media (max-width: 768px) {
+  .map-container-container {
+    height: 50vh;
+  }
+}
+
+@media (max-width: 600px) {
+  .map-container-container {
+    height: 40vh;
+  }
+}
